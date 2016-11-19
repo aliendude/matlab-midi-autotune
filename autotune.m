@@ -49,8 +49,14 @@ for i = 1:rows
         % Create sub array with portion of audio according to the midi note
         % time
         new_y_portion = audio_y(sample_init: sample_end);
-        sound(new_y_portion,Fs);
-        pause(0.5);
+        %plot(new_y_portion);
+        pause(1);
+        
+        % http://www.ee.columbia.edu/ln/labrosa/matlab/pvoc/
+        extended = pvoc(new_y_portion, 0.5);
+        shifted_sound = resample(extended,1,2); % NB: 0.8 = 4/5
+        %disp(numel(f)/audio_Fs);
+        soundsc(shifted_sound,audio_Fs);
+
     end
 end;
-
