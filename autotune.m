@@ -4,7 +4,7 @@ midi = readmidi('midi/base_de_prueba.mid');
 [y, Fs] = audioread('audio/rec.m4a');
 [lenght_audio,a] = size(y);
 disp(lenght_audio/Fs);
-new_y = 
+%new_y = 
 % sound(y,Fs);
 % synthesize with FM-synthesis.
 % (y = audio samples.  Fs = sample rate.  Here, uses default 44.1k.)
