@@ -5,7 +5,7 @@ midi = readmidi('midi/base_de_prueba.mid');
 [audio_length, a] = size(audio_y);
 disp('Audio length (s):');
 disp(audio_length/audio_Fs);
-% sound(y,Fs);
+%sound(audio_y,audio_Fs);
 % synthesize with FM-synthesis.
 % (y = audio samples.  Fs = sample rate.  Here, uses default 44.1k.)
 % sprintf(midi);
@@ -61,21 +61,23 @@ for i = 1:rows
 %     disp(audio_Fs)
 %     disp('..')
 %     disp(note_properties(2))
-    sample_init = audio_Fs* note_properties(2);
-    sample_end = audio_Fs* note_properties(3);
+    sample_init = int32(audio_Fs* note_properties(2))+1;
+    sample_end = int32(audio_Fs* note_properties(3))+1;
     %disp(sample_init);
     %disp(note_properties(2));
     % Create sub array with portion of audio according to the midi note
     % time
-    %new_y = audio_y(sample_init:sample_end);
-    
+    new_y = audio_y(sample_init: sample_end);
+    %sound(new_y,Fs);
     all_notes = [all_notes note_properties];
     %disp(all_notes);
 	%disp('---------');
 end;
-sound(new_y,Fs);
+
 % for i = 1:rows
 %     for j =1:3
+
+
 %         disp(all_notes(i,j));
 %     end
 %     disp('---------');
