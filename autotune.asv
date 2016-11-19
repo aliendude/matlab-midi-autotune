@@ -2,7 +2,9 @@
 %midi = readmidi(strcat(pathname,filename));
 midi = readmidi('midi/base_de_prueba.mid');
 [y, Fs] = audioread('audio/rec.m4a');
-
+[lenght_audio,a] = size(y);
+disp(lenght_audio/Fs);
+%new_y = 
 % sound(y,Fs);
 % synthesize with FM-synthesis.
 % (y = audio samples.  Fs = sample rate.  Here, uses default 44.1k.)
@@ -11,7 +13,7 @@ midi = readmidi('midi/base_de_prueba.mid');
 % soundsc(y, Fs);  % FM-synth
 notes = midiInfo(midi,0);%
 % compute piano-roll:
-disp(notes);
+%disp(notes);
 [PR,t,nn] = piano_roll(notes);
 %display piano-roll:
 figure;
@@ -22,7 +24,7 @@ ylabel('note number');
 
 % track number
 % channel number
-% note number (midi encoding of pitch)
+% note number (midi encoding of pitch) http://tonalsoft.com/pub/news/pitch-bend.aspx
 % velocity
 % start time (seconds)
 % end time (seconds)
@@ -38,22 +40,35 @@ for i = 1:rows
         if j == 3
             % pitch
             %append(note_properties, notes(i,j));
+            note_frecuency = 0.0;
+            if notes(i,j) == 48.0
+                note_frecuency = 130.8127;
+            elseif notes(i,j) == 55.0
+                note_frecuency = 195.9977;
+            elseif notes(i,j) == 55.0
+                note_frecuency = 195.9977;
+            elseif notes(i,j) == 55.0
+                note_frecuency = 195.9977;
+            elseif notes(i,j) == 55.0
+                note_frecuency = 195.9977;
+            elseif notes(i,j) == 55.0
+                note_frecuency = 195.9977;
             note_properties = [note_properties notes(i,j)];
         end;
         if j == 5
             % Start time
             %append(note_properties,notes(i,j));
-            note_properties = [note_properties notes(i,j)];
+            note_properties = [note_properties notes(i,j)*2];
         end;
         if j == 6
             % end time
             %append(note_properties,notes(i,j));
-            note_properties = [note_properties notes(i,j)];
+            note_properties = [note_properties notes(i,j)*2];
         end;
 	end;
     all_notes = [all_notes note_properties];
-    %disp(note_properties);
-	%disp('---------');
+    disp(note_properties);
+	disp('---------');
 end;
 % for elm = notes
 % 	disp(elm);

@@ -1,8 +1,9 @@
 %[filename, pathname] = uigetfile('.mid', 'Seleccione el archivo midi');
 %midi = readmidi(strcat(pathname,filename));
 midi = readmidi('midi/base_de_prueba.mid');
-[y, Fs] = audioread('audio/rec.m4a');
-[lenght_audio,a] = size(y);
+[audio_y, Fs] = audioread('audio/rec.m4a');
+[lenght_audio, a] = size(audio_y);
+disp('Audio length (s):');
 disp(lenght_audio/Fs);
 %new_y = 
 % sound(y,Fs);
@@ -24,7 +25,7 @@ ylabel('note number');
 
 % track number
 % channel number
-% note number (midi encoding of pitch)
+% note number (midi encoding of pitch) http://tonalsoft.com/pub/news/pitch-bend.aspx
 % velocity
 % start time (seconds)
 % end time (seconds)
@@ -40,23 +41,27 @@ for i = 1:rows
         if j == 3
             % pitch
             %append(note_properties, notes(i,j));
-            note_properties = [note_properties notes(i,j)];
+            note_frecuency = midi2freq(notes(i,j));
+            note_properties = [note_properties note_frecuency];
         end;
         if j == 5
             % Start time
             %append(note_properties,notes(i,j));
-            note_properties = [note_properties notes(i,j)];
+            note_properties = [note_properties notes(i,j)*2];% *2 just to make it longer
         end;
         if j == 6
             % end time
             %append(note_properties,notes(i,j));
-            note_properties = [note_properties notes(i,j)];
+            note_properties = [note_properties notes(i,j)*2];% *2 just to make it longer
         end;
 	end;
     all_notes = [all_notes note_properties];
-    %disp(note_properties);
-	%disp('---------');
+    %disp(all_notes);
+	disp('---------');
 end;
-% for elm = notes
-% 	disp(elm);
+% for i = 1:rows
+%     for j =1:3
+%         disp(all_notes(i,j));
+%     end
+%     disp('---------');
 % end
