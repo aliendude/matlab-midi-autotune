@@ -35,50 +35,22 @@ ylabel('note number');
 
 all_notes = [];
 new_y = [];
+new_y_portion = [];
+last_note = 0.0;
 for i = 1:rows
     note_properties = [ ];
-	for j = 1:columns
-        if j == 3
-            % pitch
-            %append(note_properties, notes(i,j));
-            note_frecuency = midi2freq(notes(i,j));
-            note_properties = [note_properties note_frecuency];
-        end;
-        if j == 5
-            % Start time
-            %append(note_properties,notes(i,j));
-            note_properties = [note_properties notes(i,j)*2];% *2 just to make it longer
-        end;
-        if j == 6
-            % end time
-            %append(note_properties,notes(i,j));
-            note_properties = [note_properties notes(i,j)*2];% *2 just to make it longer
-        end;
+    if last_note ~= notes(i, 3)
+        note_frecuency = midi2freq(notes(i,3));
+        last_note = notes(i,3);
+        start_time = notes(i,5)*2;
+        end_time = notes(i,6)*2;
+        sample_init = int32(audio_Fs* start_time)+1;
+        sample_end = int32(audio_Fs* end_time)+1;
+        % Create sub array with portion of audio according to the midi note
+        % time
+        new_y_portion = audio_y(sample_init: sample_end);
+        sound(new_y_portion,Fs);
+        pause(0.5);
     end
-%     disp('..')
-%     disp(audio_length)
-%     disp('..')
-%     disp(audio_Fs)
-%     disp('..')
-%     disp(note_properties(2))
-    sample_init = int32(audio_Fs* note_properties(2))+1;
-    sample_end = int32(audio_Fs* note_properties(3))+1;
-    %disp(sample_init);
-    %disp(note_properties(2));
-    % Create sub array with portion of audio according to the midi note
-    % time
-    new_y = audio_y(sample_init: sample_end);
-    %sound(new_y,Fs);
-    all_notes = [all_notes note_properties];
-    %disp(all_notes);
-	%disp('---------');
 end;
 
-% for i = 1:rows
-%     for j =1:3
-
-
-%         disp(all_notes(i,j));
-%     end
-%     disp('---------');
-% end
