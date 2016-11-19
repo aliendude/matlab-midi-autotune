@@ -2,9 +2,7 @@
 %midi = readmidi(strcat(pathname,filename));
 midi = readmidi('midi/base_de_prueba.mid');
 [y, Fs] = audioread('audio/rec.m4a');
-[lenght_audio,a] = size(y);
-disp(lenght_audio/Fs);
-new_y = 
+
 % sound(y,Fs);
 % synthesize with FM-synthesis.
 % (y = audio samples.  Fs = sample rate.  Here, uses default 44.1k.)
@@ -13,7 +11,7 @@ new_y =
 % soundsc(y, Fs);  % FM-synth
 notes = midiInfo(midi,0);%
 % compute piano-roll:
-%disp(notes);
+disp(notes);
 [PR,t,nn] = piano_roll(notes);
 %display piano-roll:
 figure;
