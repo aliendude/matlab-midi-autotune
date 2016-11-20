@@ -39,7 +39,7 @@ audio_y_portion = [];
 last_note = 0.0;
 for i = 1:rows
     note_properties = [ ];
-    % Lower the note down top the -5 octave
+    % Lower the note down to the -4 octave (normal human voice register)
     notes(i, 3) = notes(i, 3) - 36;
     if last_note ~= notes(i, 3)  
         disp(notes(i,3));
@@ -77,18 +77,18 @@ for i = 1:rows
         shifted_sound = resample(extended, r_1, r_2); % NB: 0.8 = 4/5
         %disp('shifted');
         %disp(numel(f)/audio_Fs);
-        soundsc(shifted_sound, audio_Fs);
-        pause(0.20);
+        %soundsc(shifted_sound, audio_Fs);
+        %pause(0.5);
         xdft = fft(shifted_sound);
         [~,index_n] = max(abs(xdft(1:length(shifted_sound)/2+1)));
         disp('new frecuency:');
         disp( index_n / 10.0);
         
-        %new_y = [new_y shifted_sound];
+        new_y = [new_y; shifted_sound];
         disp('----------');
         
     end
     
 end;
 
-%soundsc(new_y, Fs);
+soundsc(new_y, Fs);
