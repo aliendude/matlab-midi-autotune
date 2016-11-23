@@ -31,7 +31,7 @@ function varargout = main_OutputFcn(hObject, eventdata, handles)
 global audio_Fs;
 audio_Fs = 44100;
 global recObj;
-recObj = audiorecorder;
+recObj = audiorecorder(44100,16,1);
 
 % --- Executes on button press in pushbutton1.
 function pushbutton1_Callback(hObject, eventdata, handles)
@@ -123,7 +123,7 @@ function pushbutton5_Callback(hObject, eventdata, handles)
     for i = 1:rows
         note_properties = [];
         % Lower the note down to the -4 octave (normal human voice register)
-        notes(i, 3) = notes(i, 3) - 36;
+        notes(i, 3) = notes(i, 3)-44;
         if last_note ~= notes(i, 3)  
             disp(notes(i,3));
             target_frecuency = midi2freq(notes(i,3));
