@@ -123,7 +123,7 @@ function pushbutton5_Callback(hObject, eventdata, handles)
     for i = 1:rows
         note_properties = [];
         % Lower the note down to the -4 octave (normal human voice register)
-        notes(i, 3) = notes(i, 3)-44;
+        notes(i, 3) = notes(i, 3)-36;
         if last_note ~= notes(i, 3)  
             disp(notes(i,3));
             target_frecuency = midi2freq(notes(i,3));
